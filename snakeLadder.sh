@@ -2,5 +2,6 @@
 
 echo "Welcome to snake and ladder"
 position=0
-echo "The initial position of the player will be $position"
+roll=`expr $(( RANDOM % 7)) | grep -v 0`
 
+echo "The die rolled to a $roll"
