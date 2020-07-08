@@ -50,6 +50,7 @@ function playingOption()
 			else
 				echo "You got a ladder! move forward by $roll"
 				position=$(( $position+$roll ))
+				echo "position = $position"
 			fi
 		fi
 	fi
