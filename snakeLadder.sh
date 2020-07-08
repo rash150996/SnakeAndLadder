@@ -3,6 +3,8 @@
 echo "Welcome to snake and ladder"
 position=0
 pos=0
+count=0
+
 INITIAL_POSITION=0
 END_POSITION=100
 
@@ -13,6 +15,7 @@ function playingOption()
 	then
 		roll=$(( RANDOM % 6 + 1))
 		echo "The die rolled to a $roll"
+		((count++))
 		option=$(( RANDOM%3 ))
 		if [ $option -eq 0 ]
 		then
@@ -33,7 +36,8 @@ function playingOption()
 	elif [ $position -ge 94 -a $position -le $END_POSITION ]
 	then
 		roll=$(( RANDOM % 6 + 1))
-		echo "The die rolled to a $roll, move forward by $roll"
+		echo "The die rolled to a $roll"
+		((count++))
 		if [ $(( $roll + $position )) -eq $END_POSITION ]
 		then
 			echo "You have won the game!"
@@ -41,8 +45,10 @@ function playingOption()
 		else
 			if [ $(( $roll + $position )) -gt $END_POSITION ]
 			then
+				echo "No luck, roll again"
 				position=$position
 			else
+				echo "You got a ladder! move forward by $roll"
 				position=$(( $position+$roll ))
 			fi
 		fi
@@ -53,11 +59,10 @@ while (( $position <= $END_POSITION ))
 do
 	if [ $position -eq $END_POSITION ]
 	then
-		#position=100
-		#echo "You reached the end!"
 		break
 	fi
    playingOption
-	echo "You are at $position position"
+	newCount=$count
 done
 
+echo "It took you $newCount die rolls to win the game"
