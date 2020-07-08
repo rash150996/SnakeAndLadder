@@ -11,6 +11,7 @@ END_POSITION=100
 
 function playingOption()
 {
+	echo "Position = $position"
 	if [ $position -lt 94 ]
 	then
 		roll=$(( RANDOM % 6 + 1))
@@ -60,10 +61,34 @@ while (( $position <= $END_POSITION ))
 do
 	if [ $position -eq $END_POSITION ]
 	then
+		position=0
+		count=0
 		break
 	fi
    playingOption
-	newCount=$count
+	playerOneCount=$count
 done
 
-echo "It took you $newCount die rolls to win the game"
+while (( $position <= $END_POSITION ))
+do
+   if [ $position -eq $END_POSITION ]
+   then
+      position=0
+      count=0
+      break
+   fi
+   playingOption
+   playerTwoCount=$count
+done
+
+echo "----------------------------------------------------------"
+echo "It took Player 1 $playerOneCount die rolls to win the game"
+echo "----------------------------------------------------------"
+echo "It took Player 2 $playerTwoCount die rolls to win the game"
+
+if [ $playerOneCount -lt $playerTwoCount ]
+then
+	printf "\nPlayer 1 won the game\n"
+else
+	printf "\nPlayer 2 won the game\n"
+fi
